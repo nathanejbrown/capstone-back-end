@@ -12,7 +12,6 @@ router.use(function(req, res, next) {
 router.use(cookieParser());
 
 router.post('/authenticate', function (req, res, next) {
-  const renderObject = {};
   let submittedUsername = req.body.username;
   let submittedPassword = req.body.password;
   queries.getItems('users', submittedUsername, function (err, result) {
@@ -24,6 +23,20 @@ router.post('/authenticate', function (req, res, next) {
       });
     } else {
       res.send('loggedin');
+    }
+  });
+});
+
+router.post('/signup', function (req, res, next) {
+  let submittedUsername = req.body.username;
+  let submittedPassword = req.body.password;
+  queries.newUser(submittedUsername, submittedPassword, function (err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json({
+        message: 'success'
+      });
     }
   });
 });
