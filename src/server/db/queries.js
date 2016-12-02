@@ -1,6 +1,6 @@
 const knex = require('./knex');
 
-exports.getItems = function(tableName, username, callback) {
+exports.getUser = function(tableName, username, callback) {
   knex(tableName)
   .where('username', username)
   .then(result => {
@@ -8,6 +8,25 @@ exports.getItems = function(tableName, username, callback) {
   }).catch(err => {
     callback(err);
   });
+};
+
+exports.getItems = function(tableName, callback, id) {
+  if (id) {
+    knex(tableName)
+    .where('id', id)
+    .then(result => {
+      callback(null, result);
+    }).catch(err => {
+      callback(err);
+    });
+  } else {
+    knex(tableName)
+    .then(result => {
+      callback(null, result);
+    }).catch(err => {
+      callback(err);
+    });
+  }
 };
 
 exports.newUser = function(username, password, callback) {

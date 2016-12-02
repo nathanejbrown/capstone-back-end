@@ -1,13 +1,14 @@
-
 exports.seed = function(knex, Promise) {
-  // Deletes ALL existing entries
   return knex('users').del()
     .then(function () {
       return Promise.all([
-        // Inserts seed entries
         knex('users').insert({
           username: 'Heathcliff',
-          password: '123456'
+          password: '123456',
+          profilePicture: 'http://placekitten.com/300/300',
+          description: 'A mild mannered Family Room Specialist with a strange obsession with the tv show \'Dexter\' and a mortal enemy known as \'Stewart\'.',
+          firstName: 'Nathan',
+          lastName: 'Brown'
         })
       ]);
     });
